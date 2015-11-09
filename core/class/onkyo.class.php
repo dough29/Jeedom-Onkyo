@@ -113,7 +113,7 @@ class onkyo extends eqLogic {
 		// Boucle de création des variables
 		$idz =array();
 		foreach ($this->getCmd('action') as $cmd) {
-			$id = "id_".strtolower($cmd->getName());
+			$id = "id_".$cmd->getLogicalId();
 			$idz[$id] = $cmd->getId();
 			
 			if ($cmd->getIsVisible()) {
@@ -133,7 +133,7 @@ class onkyo extends eqLogic {
 			foreach ($commands as $type=>$command) {
 				foreach ($command as $label=>$code) {
 					if ($type =="action") {
-						$id = "id_".strtolower($label);
+						$id = "id_".ereg_replace("[^a-z]", "", strtolower($label));
 						$replace['#' . $id . '#'] = '';
 					}
 				}
@@ -153,7 +153,7 @@ class onkyo extends eqLogic {
 		foreach ($commands as $type=>$command) {
 			foreach ($command as $label=>$code) {
 				if ($type =="action") {
-					$id = "id_".strtolower($label);
+					$id = "id_".ereg_replace("[^a-z]", "", strtolower($label));
 					$replace['#' . $id . '#'] = $idz[$id];
 				}
 			}			
