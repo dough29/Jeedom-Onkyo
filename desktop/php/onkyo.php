@@ -84,10 +84,10 @@ $eqLogics = eqLogic::byType('onkyo');
 		<table id="table_cmd" class="table table-bordered table-condensed">
 			<thead>
 				<tr>
-					<th style="width: 50px;">{{ID}}</th>
+					<th style="width: 50px;">#</th>
 					<th style="width: 200px;">{{Nom}}</th>
+					<th style="width: 200px;">{{Paramètres}}</th>
 					<th style="width: 200px;">{{Action}}</th>
-					<th style="width: 150px;"></th>
 				</tr>
 			</thead>
 			<tbody>
