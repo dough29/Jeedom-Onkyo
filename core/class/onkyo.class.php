@@ -116,7 +116,6 @@ class onkyo extends eqLogic {
 			$idz[$id] = $cmd->getId();
 			
 			if ($cmd->getIsVisible()) {
-				echo "--> ".$cmd->getId()."<--";
 				$replace['#commandeid#'] = $cmd->getId();
 				$replace['#commande#'] = $cmd->getName();
 				$html_commandes .= template_replace($replace, $commandes_template);
