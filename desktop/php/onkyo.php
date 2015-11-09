@@ -81,7 +81,6 @@ $eqLogics = eqLogic::byType('onkyo');
 			</fieldset> 
 		</form>
 		<legend>Commandes</legend>
-		<a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
 		<table id="table_cmd" class="table table-bordered table-condensed">
 			<thead>
 				<tr>
