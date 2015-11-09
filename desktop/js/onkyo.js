@@ -20,6 +20,31 @@ $(function() {
 });
 
 function addCmdToTable(_cmd) {
+	if (!isset(_cmd)) {
+		var _cmd = {configuration: {}};
+	}
+	if (!isset(_cmd.configuration)) {
+		_cmd.configuration = {};
+	}
+	var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
+		tr += '<td>' + init(_cmd.id) + '</td>';
+		tr += '<td>' + init(_cmd.name) + '</td>';
+		tr += '<td style="width: 130px;">';
+		tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini"  data-l1key="isVisible" checked/> {{Afficher}}<br/></span>';
+		tr += '</td>';
+		tr += '<td>';
+		if (is_numeric(_cmd.id)) {
+			tr += '<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure"><i class="fa fa-cogs"></i></a> ';
+			tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
+		}
+		tr += '</td>';
+		tr += '</tr>';
+	$('#table_cmd tbody').append(tr);
+	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
+	if (isset(_cmd.type)) {
+		$('#table_cmd tbody tr:last .cmdAttr[data-l1key=type]').value(init(_cmd.type));
+	}
+	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
 /*
 function printOnkyo(_OnkyoEq_id) {

@@ -86,9 +86,7 @@ $eqLogics = eqLogic::byType('onkyo');
 				<tr>
 					<th style="width: 50px;">{{ID}}</th>
 					<th style="width: 200px;">{{Nom}}</th>
-					<th style="width: 200px;">{{Type}}</th>
-					<th>{{Options}}</th>
-					<th style="width: 100px;">{{Paramètres}}</th>
+					<th style="width: 200px;">{{Action}}</th>
 					<th style="width: 150px;"></th>
 				</tr>
 			</thead>
