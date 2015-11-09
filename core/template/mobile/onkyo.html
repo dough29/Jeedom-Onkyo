@@ -1,0 +1,32 @@
+
+<div class="eqLogic eqLogic-widget" style="background-color: #background_color#" data-eqLogic_id="#id#" data-version="mobile">
+    <center><strong> #name#  </strong></center><br />
+    <div class="row">
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_off#"><span class="action"><img src="plugins/onkyo/core/template/ressources/power_off.png" width="60px" height="60px"></span></span></div>
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_on#"><span class="action"><img src="plugins/onkyo/core/template/ressources/power_on.png" width="60px" height="60px"></span></span></div>
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_mute#"><span class="action"><img src="plugins/onkyo/core/template/ressources/mute.png" width="60px" height="60px"></span></span></div>
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_unmute#"><span class="action"><img src="plugins/onkyo/core/template/ressources/unmute.png" width="60px" height="60px"></span></span></div>
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_voldown#"><span class="action"><img src="plugins/onkyo/core/template/ressources/volume_down.png" width="60px" height="60px"></span></span></div>
+    <div class="col-md-3"><span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id_volup#"><span class="action"><img src="plugins/onkyo/core/template/ressources/volume_up.png" width="60px" height="60px"></span></span></div>
+    </div>
+</div>
+	<script>
+$('.cmd[data-cmd_id=#id_on#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_on#'});
+});
+$('.cmd[data-cmd_id=#id_off#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_off#'});
+});
+$('.cmd[data-cmd_id=#id_mute#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_mute#'});
+});
+$('.cmd[data-cmd_id=#id_unmute#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_unmute#'});
+});
+$('.cmd[data-cmd_id=#id_volup#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_volup#'});
+});
+$('.cmd[data-cmd_id=#id_voldown#] .action').on('click', function() {
+	jeedom.cmd.execute({id: '#id_voldown#'});
+});
+    </script>

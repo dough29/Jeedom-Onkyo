@@ -1,0 +1,191 @@
+; Gestion de l'alimentation
+On	PWR01	action
+Off	PWR00	action
+	
+; Gestion des haut-parleurs
+SpeakerA_On	SPA00	action
+SpeakerA_Off	SPA01	action
+SpeakerB_On	SPB00	action
+SpeakerB_Off	SPAB1	action
+
+; Gestion du volume
+Mute	AMT01	action
+Unmute	AMT00	action
+Volume_Up	MVLUP	action
+Volume_Down	MVLDOWN	action
+Volume_Level00	MVL00	action
+Volume_Level01	MVL01	action
+Volume_Level02	MVL02	action
+Volume_Level03	MVL03	action
+Volume_Level04	MVL04	action
+Volume_Level05	MVL05	action
+Volume_Level06	MVL06	action
+Volume_Level07	MVL07	action
+Volume_Level08	MVL08	action
+Volume_Level09	MVL09	action
+Volume_Level10	MVL0a	action
+Volume_Level11	MVL0b	action
+Volume_Level12	MVL0c	action
+Volume_Level13	MVL0d	action
+Volume_Level14	MVL0e	action
+Volume_Level15	MVL0f	action
+Volume_Level16	MVL10	action
+Volume_Level17	MVL11	action
+Volume_Level18	MVL12	action
+Volume_Level19	MVL13	action
+Volume_Level20	MVL14	action
+Volume_Level21	MVL15	action
+Volume_Level22	MVL16	action
+Volume_Level23	MVL17	action
+Volume_Level24	MVL18	action
+Volume_Level25	MVL19	action
+Volume_Level26	MVL1a	action
+Volume_Level27	MVL1b	action
+Volume_Level28	MVL1c	action
+Volume_Level29	MVL1d	action
+Volume_Level30	MVL1e	action
+Volume_Level31	MVL1f	action
+Volume_Level32	MVL20	action
+Volume_Level33	MVL21	action
+Volume_Level34	MVL22	action
+Volume_Level35	MVL23	action
+Volume_Level36	MVL24	action
+Volume_Level37	MVL25	action
+Volume_Level38	MVL26	action
+Volume_Level39	MVL27	action
+Volume_Level40	MVL28	action
+Volume_Level41	MVL29	action
+Volume_Level42	MVL2a	action
+Volume_Level43	MVL2b	action
+Volume_Level44	MVL2c	action
+Volume_Level45	MVL2d	action
+Volume_Level46	MVL2e	action
+Volume_Level47	MVL2f	action
+Volume_Level48	MVL30	action
+Volume_Level49	MVL31	action
+Volume_Level50	MVL32	action
+Volume_Level51	MVL33	action
+Volume_Level52	MVL34	action
+Volume_Level53	MVL35	action
+Volume_Level54	MVL36	action
+Volume_Level55	MVL37	action
+Volume_Level56	MVL38	action
+Volume_Level57	MVL39	action
+Volume_Level58	MVL3a	action
+Volume_Level59	MVL3b	action
+Volume_Level60	MVL3c	action
+Volume_Level61	MVL3d	action
+Volume_Level62	MVL3e	action
+Volume_Level63	MVL3f	action
+Volume_Level64	MVL40	action
+Volume_Level65	MVL41	action
+Volume_Level66	MVL42	action
+Volume_Level67	MVL43	action
+Volume_Level68	MVL44	action
+Volume_Level69	MVL45	action
+Volume_Level70	MVL46	action
+Volume_Level71	MVL47	action
+Volume_Level72	MVL48	action
+Volume_Level73	MVL49	action
+Volume_Level74	MVL4a	action
+Volume_Level75	MVL4b	action
+Volume_Level76	MVL4c	action
+Volume_Level77	MVL4d	action
+Volume_Level78	MVL4e	action
+Volume_Level79	MVL4f	action
+Volume_Level80	MVL50	action
+
+; Gestion des affichages
+Display_SelectAndVolume	DIF00	action
+Display_SelectAndListeningMode	DIF01	action
+Display_DigitalFormat	DIF02	action
+Display_VideoFormat	DIF03	action
+
+; Gestion du dimmer
+DimmerBright	DIM00	action
+Dimmer_Dim	DIM01	action
+Dimmer_Dark	DIM02	action
+Dimmer_ShutOff	DIM03	action
+Dimmer_BrightLEDOff	DIM08	action
+
+; Gestion des entrées
+Input_VCR_DVR	SLI00	action
+Input_CBL_SAT	SLI01	action
+Input_Game	SLI02	action
+Input_Aux	SLI03	action
+Input_Aux2	SLI04	action
+Input_PC	SLI05	action
+Input_Video7	SLI06	action
+Input_Hidden1	SLI07	action
+Input_Hidden2	SLI08	action
+Input_Hidden3	SLI09	action
+Input_BD_DVD	SLI10	action
+Input_Tape1	SLI20	action
+Input_Tape2	SLI21	action
+Input_Phono	SLI22	action
+Input_CD	SLI23	action
+Input_FM	SLI24	action
+Input_AM	SLI25	action
+Input_Tuner	SLI26	action
+Input_MusicServer	SLI27	action
+Input_InternetRadio	SLI28	action
+Input_USBFront	SLI29	action
+Input_USBRear	SLI2A	action
+Input_Network	SLI2B	action
+Input_USBToggle	SLI2C	action
+Input_UniversalPort	SLI40	action
+Input_MultiCH	SLI30	action
+Input_XM1	SLI31	action
+Input_Sirius1	SLI32	action
+Input_Up	SLIUP	action
+Input_Down	SLIDOWN	action
+
+Audio_Auto	SLA00	action
+Audio_MultiCh	SLA01	action
+Audio_Analog	SLA02	action 
+Audio_iLink	SLA03	action 
+Audio_HDMI	SLA04	action
+Audio_CoaxOpt	SLA05	action 
+Audio_Balance	SLA06	action
+Audio_ARC	SLA07	action 
+	
+ Gestion des ambiances sonores
+Preset_DolbyEX2	LMD41	action
+	
+; Gestion du mode veille
+SleepTime_01min	SLP01	action
+SleepTime_05min	SLP05	action
+SleepTime_15min	SLP0F	action
+SleepTime_30min	SLP1E	action
+SleepTime_45min	SLP2D	action
+SleepTime_60min	SLP3C	action
+SleepTime_90min	SLP5A	action
+Sleep_Off	SLPOFF	action
+Sleep_Up	SLPUP	action
+	
+; Gestion des codes de mode nuit
+LateNight_Off	LTN00	action
+LateNight_Low	LTN01	action
+LateNight_High	LTN02	action
+
+; Emulation des touches de télécommande
+Remote_Menu	OSDMENU	action
+Remote_Up	OSDUP	action 
+Remote_Down	OSDDOWN	action
+Remote_Right	OSDRIGHT	action
+Remote_Left	OSDLEFT	action
+Remote_Enter	OSDENTER	action	 
+Remote_Exit	OSDEXIT	action
+Remote_AudioAdjust	OSDAUDIO	action 
+Remote_VideoAdjust	OSDVIDEO	action
+Remote_Home	OSDHOME	action
+
+; Gestion des retours de valeurs
+Volume_State	MVLQSTN	info
+Etat_State	PWRQSTN	info
+Sleep_State	SLPQSTN	info
+SpeakerA_State	SPAQSTN	info
+SpeakerB_State	SPBQSTN	info
+Display_State	DIFQSTN	info
+Dimmer_State DIMQSTN	info
+Audio_State	SLAQSTN	info
