@@ -108,6 +108,7 @@ class onkyo extends eqLogic {
 		$commands = $this->getCommandsFromFile();
 		
 		$html_commandes = '';
+		$js_commandes = '';
 		$commandes_template = getTemplate('core', $_version, 'commandes', 'onkyo');
 	
 		// Boucle de création des variables
@@ -120,6 +121,7 @@ class onkyo extends eqLogic {
 				$replace['#commandeId#'] = $cmd->getId();
 				$replace['#commandeLogicialId#'] = $cmd->getLogicalId();
 				$html_commandes .= template_replace($replace, $commandes_template);
+				$js_commandes .= "$('.cmd[data-cmd_id=".$cmd->getId()."] .action').on('click', function() {jeedom.cmd.execute({id: '".$cmd->getId()."'});});";
 			}
 		}
 		
@@ -142,6 +144,7 @@ class onkyo extends eqLogic {
 			$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
 			$replace['#eqLink#'] = $this->getLinkToConfiguration();
 			$replace['#commandes#'] = $html_commandes;
+			$replace['#js_commandes#'] = $js_commandes;
 			return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
 		}
 		
@@ -163,6 +166,7 @@ class onkyo extends eqLogic {
 		$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
 		$replace['#eqLink#'] = $this->getLinkToConfiguration();
 		$replace['#commandes#'] = $html_commandes;
+		$replace['#js_commandes#'] = $js_commandes;
 		return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
 	}
 
