@@ -28,7 +28,11 @@ function addCmdToTable(_cmd) {
 	}
 	var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
 		tr += '<td>' + init(_cmd.id) + '</td>';
-		tr += '<td>' + init(_cmd.name) + '</td>';
+		tr += '<td>';
+		tr += '<input class="cmdAttr form-control input-sm" data-l1key="id" style="display : none;">';
+		tr += '<input class="cmdAttr form-control input-sm" data-l1key="type" style="display : none;">';
+		tr += '<input class="cmdAttr form-control input-sm" data-l1key="subType" style="display : none;">';
+		tr += '' + init(_cmd.name) + '</td>';
 		tr += '<td style="width: 130px;">';
 		tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini"  data-l1key="isVisible" checked/> {{Afficher}}<br/></span>';
 		tr += '</td>';
