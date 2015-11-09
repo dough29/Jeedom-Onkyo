@@ -31,16 +31,16 @@ class onkyo extends eqLogic {
 		}
 		$commands = array();
 		//echo "$path"."template/ressources/commands.txt"
-		foreach (file("$path"."template/ressources/commands.txt") as $ligne) {
+		foreach (file($path."template/ressources/commands.txt") as $ligne) {
 			if (trim($ligne) !== "" && !preg_match("/\;/",$ligne)) {
 				$cases = preg_split("/\t/",$ligne);
 				$label = trim($cases[0]);
 				$code = trim($cases[1]);
 				$type = trim($cases[2]);
-				if (!isset($commands["$type"])) {
-					$commands["$type"] = array();
+				if (!isset($commands[$type])) {
+					$commands[$type] = array();
 				}
-				$commands["$type"]["$label"] = "$code";
+				$commands[$type][$label] = $code;
 			}
 		}
 		return $commands;
@@ -81,16 +81,17 @@ class onkyo extends eqLogic {
 			foreach ($command as $label=>$code) {
 				//var_dump($commands); die;
 				if (trim($type) !== "") {
-					$type_params = $this->getTypeParams("$type");
+					$type_params = $this->getTypeParams($type);
 					$onkyoCmd = new onkyoCmd();
-					$onkyoCmd->setName(__("$label", __FILE__));
+					$onkyoCmd->setName(__($label, __FILE__));
 					$onkyoCmd->setEqLogic_id($this->id);
-					$onkyoCmd->setConfiguration($type_params['configuration'], "$code");
+					$onkyoCmd->setConfiguration($type_params['configuration'], $code);
 					if (!is_null($type_params['unite'])) {
 						$onkyoCmd->setUnite($type_params['unite']);
 					}
 					$onkyoCmd->setType($type);
 					$onkyoCmd->setSubType($type_params['subtype']);
+					$onkyoCmd->setIsVisible(0);
 					$onkyoCmd->save();
 				}
 			}
@@ -104,12 +105,22 @@ class onkyo extends eqLogic {
 		}
 
 		$commands = $this->getCommandsFromFile();
+		
+		$html_commandes = '';
+		$commandes_template = getTemplate('core', $_version, 'commandes', 'onkyo');
 	
 		// Boucle de création des variables
 		$idz =array();
 		foreach ($this->getCmd('action') as $cmd) {
 			$id = "id_".strtolower($cmd->getName());
 			$idz[$id] = $cmd->getId();
+			
+			if ($cmd->getIsVisible()) {
+				echo "--> ".$cmd->getId()."<--";
+				$replace['#commandeid#'] = $cmd->getId();
+				$replace['#commande#'] = $cmd->getName();
+				$html_commandes .= template_replace($replace, $commandes_template);
+			}
 		}
 		
 		// Récupération des infos
@@ -130,6 +141,7 @@ class onkyo extends eqLogic {
 			$replace['#id#'] = $this->getId();
 			$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
 			$replace['#eqLink#'] = $this->getLinkToConfiguration();
+			$replace['#commandes#'] = $html_commandes;
 			return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
 		}
 		
@@ -150,6 +162,7 @@ class onkyo extends eqLogic {
 		$replace['#id#'] = $this->getId();
 		$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
 		$replace['#eqLink#'] = $this->getLinkToConfiguration();
+		$replace['#commandes#'] = $html_commandes;
 		return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
 	}
 
