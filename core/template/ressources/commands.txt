@@ -148,8 +148,8 @@ Audio_HDMI	SLA04	action
 Audio_CoaxOpt	SLA05	action 
 Audio_Balance	SLA06	action
 Audio_ARC	SLA07	action 
-	
- Gestion des ambiances sonores
+
+; Gestion des ambiances sonores
 Preset_DolbyEX2	LMD41	action
 	
 ; Gestion du mode veille
@@ -187,5 +187,5 @@ Sleep_State	SLPQSTN	info
 SpeakerA_State	SPAQSTN	info
 SpeakerB_State	SPBQSTN	info
 Display_State	DIFQSTN	info
-Dimmer_State DIMQSTN	info
+Dimmer_State	DIMQSTN	info
 Audio_State	SLAQSTN	info
