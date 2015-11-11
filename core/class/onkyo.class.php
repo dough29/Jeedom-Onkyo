@@ -20,34 +20,13 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class onkyo extends eqLogic {
 
-	public function getCommandsFromFile () {
-		// Moulinette pour contourner l'adressage biaisé de l'include
-		$path = "";
-		$temp = preg_split("/\//",__FILE__);
-		for ($i=0;$i< sizeof($temp)- 2;$i++) {
-			if (!preg_match("/[A-z]\.php/",$temp[$i])) {
-				$path .= $temp[$i]."/";	
-			}
-		}
-		$commands = array();
-		//echo "$path"."template/ressources/commands.txt"
-		foreach (file($path."template/ressources/commands.txt") as $ligne) {
-			if (trim($ligne) !== "" && !preg_match("/\;/",$ligne)) {
-				$cases = preg_split("/\t/",$ligne);
-				$label = trim($cases[0]);
-				$code = trim($cases[1]);
-				$type = trim($cases[2]);
-				if (!isset($commands[$type])) {
-					$commands[$type] = array();
-				}
-				$commands[$type][$label] = $code;
-			}
-		}
-		return $commands;
+	public function getCommandsFromJSon () {
+		$json = file_get_contents(__DIR__.'/../template/ressources/commands.json');
+		$cmds = json_decode($json);
+		
+		return $cmds;
 	}
 
-	
-	
 	public function getTypeParams ($type) {
 		$typ = trim($type);
 		if ($typ == "action") {
@@ -75,29 +54,27 @@ class onkyo extends eqLogic {
 
 	public function postInsert() {
 		
-		$commands = $this->getCommandsFromFile();
-		// Boucle de création des objets commandes
-		foreach ($commands as $type=>$command) {
-			foreach ($command as $label=>$code) {
-				//var_dump($commands); die;
-				if (trim($type) !== "") {
+		$commands = $this->getCommandsFromJSon();
+
+		foreach ($commands as $category=>$catCommands) {
+			foreach ($catCommands as $commandName=>$conf) {
+				foreach ($conf as $command=>$type) {
 					$type_params = $this->getTypeParams($type);
 					$onkyoCmd = new onkyoCmd();
-					$onkyoCmd->setName(__($label, __FILE__));
+					$onkyoCmd->setName($commandName);
 					$onkyoCmd->setEqLogic_id($this->id);
-					$onkyoCmd->setConfiguration($type_params['configuration'], $code);
+					$onkyoCmd->setConfiguration($type_params['configuration'], $command);
 					if (!is_null($type_params['unite'])) {
 						$onkyoCmd->setUnite($type_params['unite']);
 					}
 					$onkyoCmd->setType($type);
 					$onkyoCmd->setSubType($type_params['subtype']);
 					$onkyoCmd->setIsVisible(0);
-					$onkyoCmd->setLogicalId(ereg_replace("[^a-z]", "", strtolower(__($label, __FILE__)))); 
+					$onkyoCmd->setLogicalId(ereg_replace("[^a-z]", "", strtolower($commandName))); 
 					$onkyoCmd->save();
 				}
 			}
 		}
-
 	}
 
 	public function toHtml($_version = 'dashboard') {
@@ -105,8 +82,8 @@ class onkyo extends eqLogic {
 			return '';
 		}
 
-		$commands = $this->getCommandsFromFile();
-		
+		$commands = $this->getCommandsFromJSon();
+
 		$html_commandes = '';
 		$js_commandes = '';
 		$commandes_template = getTemplate('core', $_version, 'commandes', 'onkyo');
@@ -132,15 +109,19 @@ class onkyo extends eqLogic {
 		if (!is_array($onkyo)) {
 			$replace = array();
 			$replace['#ip_address#'] = '';
-			foreach ($commands as $type=>$command) {
-				foreach ($command as $label=>$code) {
+
+		foreach ($commands as $category=>$catCommands) {
+			foreach ($catCommands as $commandName=>$conf) {
+				foreach ($conf as $command=>$type) {
 					if ($type =="action") {
-						$id = "id_".ereg_replace("[^a-z]", "", strtolower($label));
+						$id = "id_".ereg_replace("[^a-z]", "", strtolower($commandName));
 						$replace['#' . $id . '#'] = '';
 					}
 				}
 			}
-			$replace['#id#'] = $this->getId();
+		}
+
+		$replace['#id#'] = $this->getId();
 			$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
 			$replace['#eqLink#'] = $this->getLinkToConfiguration();
 			$replace['#commandes#'] = $html_commandes;
