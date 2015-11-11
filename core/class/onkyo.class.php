@@ -70,7 +70,7 @@ class onkyo extends eqLogic {
 					$onkyoCmd->setType($type);
 					$onkyoCmd->setSubType($type_params['subtype']);
 					$onkyoCmd->setIsVisible(0);
-					$onkyoCmd->setLogicalId(ereg_replace("[^a-z]", "", strtolower($commandName))); 
+					$onkyoCmd->setLogicalId(ereg_replace("[^a-z0-9]", "", strtolower($commandName))); 
 					$onkyoCmd->save();
 				}
 			}
