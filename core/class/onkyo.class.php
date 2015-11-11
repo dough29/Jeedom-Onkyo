@@ -22,7 +22,7 @@ class onkyo extends eqLogic {
 
 	public function getCommandsFromJSon () {
 		$json = file_get_contents(__DIR__.'/../template/ressources/commands.json');
-		$cmds = json_decode($json);
+		$cmds = json_decode($json, true);
 		
 		return $cmds;
 	}
@@ -83,7 +83,7 @@ class onkyo extends eqLogic {
 		}
 		
 		// Récupération des informations de l'ampli
-		//$onkyo = $this->getOnkyoInfos();
+		$onkyo = $this->getOnkyoInfos();
 		
 		// Tableau des valeurs à remplacer dans le template 'onkyo.html'
 		$replace = array();
@@ -95,35 +95,22 @@ class onkyo extends eqLogic {
 		
 		$replace['#currentVolume#'] = $onkyo['currentVolume'];
 		
-		// Tableau des commandes visibles sur le widget
-		$visibleCommands = array();
+		$onkyoCommands = $this->getCommandsFromJSon();
+
+		$commandReplace = array();
+		$replace['#js_commandes#'] = '';
 		
 		foreach ($this->getCmd('action') as $cmd) {
 			if ($cmd->getIsVisible()) {
-				$visibleCommands[$cmd->getLogicalId()] = $cmd->getId();
-			}
-		}
-		
-		$onkyoCommands = $this->getCommandsFromJSon();
-		
-		$replace['#js_commandes#'] = '';
-		$commandReplace = array();
-		
-		foreach ($onkyoCommands as $category=>$catCommands) {
-			foreach ($catCommands as $commandName=>$conf) {
-				foreach ($conf as $command=>$type) {
-					$logicalId = ereg_replace("[^a-z]", "", strtolower($commandName));
-					if (array_key_exists($logicalId, $visibleCommands)) {
+				foreach ($onkyoCommands as $category=>$catCommands) {
+					if (array_key_exists($cmd->getName(), $onkyoCommands[$category])) {
 						// Initialisation de la catégorie
 						if (!array_key_exists($category, $commandReplace)) $commandReplace[$category] = '';
 						
-						// Récupération du cmdId
-						$cmdId = $visibleCommands[$logicalId];
-						
 						// Création du bouton
-						$commandReplace[$category] .= '<span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="'.$cmdId.'"><span class="action"><img src="plugins/onkyo/core/template/ressources/'.$logicalId.'.png" style="width:50px; height:50px;"></span></span>';
+						$commandReplace[$category] .= '<span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="'.$cmd->getId().'"><span class="action"><img src="plugins/onkyo/core/template/ressources/'.$cmd->getLogicalId().'.png" style="width:50px; height:50px;"></span></span>';
 						// Création du JS associé
-						$replace['#js_commandes#'] .= "$('.cmd[data-cmd_id=".$cmdId."] .action').on('click', function() {jeedom.cmd.execute({id: '".$cmdId."'});});";
+						$replace['#js_commandes#'] .= "$('.cmd[data-cmd_id=".$cmd->getId()."] .action').on('click', function() {jeedom.cmd.execute({id: '".$cmd->getId()."'});});";
 					}
 				}
 			}
