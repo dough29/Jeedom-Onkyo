@@ -81,73 +81,60 @@ class onkyo extends eqLogic {
 		if ($this->getIsEnable() != 1) {
 			return '';
 		}
-
-		$commands = $this->getCommandsFromJSon();
-
-		$html_commandes = '';
-		$js_commandes = '';
-		$commandes_template = getTemplate('core', $_version, 'commandes', 'onkyo');
-	
-		// Boucle de création des variables
-		$idz =array();
+		
+		// Récupération des informations de l'ampli
+		//$onkyo = $this->getOnkyoInfos();
+		
+		// Tableau des valeurs à remplacer dans le template 'onkyo.html'
+		$replace = array();
+		
+		$replace['#id#'] = $this->getId();
+		$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
+		$replace['#eqLink#'] = $this->getLinkToConfiguration();
+		$replace['#name#'] = $this->getName();
+		
+		$replace['#currentVolume#'] = $onkyo['currentVolume'];
+		
+		// Tableau des commandes visibles sur le widget
+		$visibleCommands = array();
+		
 		foreach ($this->getCmd('action') as $cmd) {
-			$id = "id_".$cmd->getLogicalId();
-			$idz[$id] = $cmd->getId();
-			
 			if ($cmd->getIsVisible()) {
-				$replace['#commandeId#'] = $cmd->getId();
-				$replace['#commandeLogicialId#'] = $cmd->getLogicalId();
-				$html_commandes .= template_replace($replace, $commandes_template);
-				$js_commandes .= "$('.cmd[data-cmd_id=".$cmd->getId()."] .action').on('click', function() {jeedom.cmd.execute({id: '".$cmd->getId()."'});});";
+				$visibleCommands[$cmd->getLogicalId()] = $cmd->getId();
 			}
 		}
 		
-		// Récupération des infos
-		$onkyo = $this->getonkyoInfos();
+		$onkyoCommands = $this->getCommandsFromJSon();
 		
-		// Cas d'échec
-		if (!is_array($onkyo)) {
-			$replace = array();
-			$replace['#ip_address#'] = '';
-
-		foreach ($commands as $category=>$catCommands) {
+		$replace['#js_commandes#'] = '';
+		$commandReplace = array();
+		
+		foreach ($onkyoCommands as $category=>$catCommands) {
 			foreach ($catCommands as $commandName=>$conf) {
 				foreach ($conf as $command=>$type) {
-					if ($type =="action") {
-						$id = "id_".ereg_replace("[^a-z]", "", strtolower($commandName));
-						$replace['#' . $id . '#'] = '';
+					$logicalId = ereg_replace("[^a-z]", "", strtolower($commandName));
+					if (array_key_exists($logicalId, $visibleCommands)) {
+						// Initialisation de la catégorie
+						if (!array_key_exists($category, $commandReplace)) $commandReplace[$category] = '';
+						
+						// Récupération du cmdId
+						$cmdId = $visibleCommands[$logicalId];
+						
+						// Création du bouton
+						$commandReplace[$category] .= '<span class="cursor cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="'.$cmdId.'"><span class="action"><img src="plugins/onkyo/core/template/ressources/'.$logicalId.'.png" style="width:50px; height:50px;"></span></span>';
+						// Création du JS associé
+						$replace['#js_commandes#'] .= "$('.cmd[data-cmd_id=".$cmdId."] .action').on('click', function() {jeedom.cmd.execute({id: '".$cmdId."'});});";
 					}
 				}
 			}
 		}
-
-		$replace['#id#'] = $this->getId();
-			$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
-			$replace['#eqLink#'] = $this->getLinkToConfiguration();
-			$replace['#commandes#'] = $html_commandes;
-			$replace['#js_commandes#'] = $js_commandes;
-			return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
+		
+		$replace['#commandes#'] = '';
+		
+		foreach($commandReplace as $category=>$value) {
+			$replace['#commandes#'] .= '<tr><td>'.$category.'</td><td>'.$value.'</td></tr>';
 		}
 		
-		// Cas de succès
-		$replace = array();
-		$replace['#name#'] = $this->getName();
-		$replace['#ip_address#'] = $this->getConfiguration('ip_address');
-		
-		foreach ($commands as $type=>$command) {
-			foreach ($command as $label=>$code) {
-				if ($type =="action") {
-					$id = "id_".ereg_replace("[^a-z]", "", strtolower($label));
-					$replace['#' . $id . '#'] = $idz[$id];
-				}
-			}			
-		}
-		//var_dump($idz); die;
-		$replace['#id#'] = $this->getId();
-		$replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
-		$replace['#eqLink#'] = $this->getLinkToConfiguration();
-		$replace['#commandes#'] = $html_commandes;
-		$replace['#js_commandes#'] = $js_commandes;
 		return template_replace($replace, getTemplate('core', jeedom::versionAlias($_version), 'onkyo', 'onkyo'));
 	}
 
@@ -155,11 +142,11 @@ class onkyo extends eqLogic {
 		return true;
 	}
 
-	public function getonkyoInfos() {
+	public function getOnkyoInfos() {
 		$onkyo= array();
 		
-		//$out = $this->sendISCP('MVLQSTN');
-		//$onkyo['currentVolume'] = hexdec(substr($out, 3, 2));
+		$out = $this->sendISCP('MVLQSTN');
+		$onkyo['currentVolume'] = hexdec(substr($out, 3, 2));
 		
 		//$out = $this->sendISCP('PWRQSTN');
 		//$onkyo['powerState'] = substr($out, 3, 2);
