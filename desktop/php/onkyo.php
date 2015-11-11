@@ -80,6 +80,14 @@ $eqLogics = eqLogic::byType('onkyo');
 			
 			</fieldset> 
 		</form>
+		<form class="form-horizontal">
+		  <fieldset>
+			<div class="form-actions" align="right">
+			  <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+			  <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+			</div>
+		  </fieldset>
+		</form>
 		<legend>Commandes</legend>
 		<table id="table_cmd" class="table table-bordered table-condensed">
 			<thead>
