@@ -50,6 +50,34 @@ class onkyo extends eqLogic {
 	}
 
 	public function postUpdate() {
+		// Vérifier si toutes les commandes sont créées
+		$currentCommands = array();
+		foreach ($this->getCmd() as $cmd) {
+			$currentCommands[] = $cmd->getLogicalId();
+		}
+		
+		$commands = $this->getCommandsFromJSon();
+		foreach ($commands as $category=>$catCommands) {
+			foreach ($catCommands as $commandName=>$conf) {
+				foreach ($conf as $command=>$type) {
+					if (!in_array(ereg_replace("[^a-z0-9]", "", strtolower($commandName)), $currentCommands)) {
+						$type_params = $this->getTypeParams($type);
+						$onkyoCmd = new onkyoCmd();
+						$onkyoCmd->setName($commandName);
+						$onkyoCmd->setEqLogic_id($this->id);
+						$onkyoCmd->setConfiguration($type_params['configuration'], $command);
+						if (!is_null($type_params['unite'])) {
+							$onkyoCmd->setUnite($type_params['unite']);
+						}
+						$onkyoCmd->setType($type);
+						$onkyoCmd->setSubType($type_params['subtype']);
+						$onkyoCmd->setIsVisible(0);
+						$onkyoCmd->setLogicalId(ereg_replace("[^a-z0-9]", "", strtolower($commandName))); 
+						$onkyoCmd->save();
+					}
+				}
+			}
+		}
 	}
 
 	public function postInsert() {
