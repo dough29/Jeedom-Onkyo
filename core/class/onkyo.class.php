@@ -60,7 +60,7 @@ class onkyo extends eqLogic {
 		foreach ($commands as $category=>$catCommands) {
 			foreach ($catCommands as $commandName=>$conf) {
 				foreach ($conf as $command=>$type) {
-					if (!in_array(ereg_replace("[^a-z0-9]", "", strtolower($commandName)), $currentCommands)) {
+					if (!in_array(preg_replace("[^a-z0-9]", "", strtolower($commandName)), $currentCommands)) {
 						$type_params = $this->getTypeParams($type);
 						$onkyoCmd = new onkyoCmd();
 						$onkyoCmd->setName($commandName);
@@ -72,7 +72,7 @@ class onkyo extends eqLogic {
 						$onkyoCmd->setType($type);
 						$onkyoCmd->setSubType($type_params['subtype']);
 						$onkyoCmd->setIsVisible(0);
-						$onkyoCmd->setLogicalId(ereg_replace("[^a-z0-9]", "", strtolower($commandName))); 
+						$onkyoCmd->setLogicalId(preg_replace("[^a-z0-9]", "", strtolower($commandName))); 
 						$onkyoCmd->save();
 					}
 				}
@@ -98,7 +98,7 @@ class onkyo extends eqLogic {
 					$onkyoCmd->setType($type);
 					$onkyoCmd->setSubType($type_params['subtype']);
 					$onkyoCmd->setIsVisible(0);
-					$onkyoCmd->setLogicalId(ereg_replace("[^a-z0-9]", "", strtolower($commandName))); 
+					$onkyoCmd->setLogicalId(preg_replace("[^a-z0-9]", "", strtolower($commandName))); 
 					$onkyoCmd->save();
 				}
 			}
