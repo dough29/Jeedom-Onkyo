@@ -1,2 +1,3 @@
-* V0.2 : Initialisation de la documentation
-* V0.1 : Première Release
+==== Version 2 - 21/11/2016
+
+Nouvelle version 2.0

@@ -1,0 +1,30 @@
+{
+  "name": "jeedom-onkyo",
+  "version": "1.0.0",
+  "description": "Node permettant d'interfacer Jeedom aux amplificateurs de la marque Onkyo",
+  "main": "onkyoNode.js",
+  "dependencies": {
+    "async": "^2.1.2",
+    "events": "^1.1.1",
+    "net": "^1.0.2",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dough29/Jeedom-Onkyo.git"
+  },
+  "keywords": [
+    "jeedom",
+    "onkyo"
+  ],
+  "author": "Damien alias Dough <dough29@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dough29/Jeedom-Onkyo/issues"
+  },
+  "homepage": "https://github.com/dough29/Jeedom-Onkyo#readme"
+}

@@ -1,0 +1,1 @@
+Pour utiliser votre amplificateur Onkyo avec Jeedon, vous devez configurer l'adresse IP de l'amplificateur.

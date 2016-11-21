@@ -1,0 +1,10 @@
+{
+	"id" : "onkyo",
+	"name" : "onkyo",
+	"licence" : "AGPL",
+	"author" : "Damien alias Dough <dough29@gmail.com>",
+	"require" : "2.4",
+	"category" : "multimedia",
+	"hasDependency" : 1,
+	"hasOwnDeamon" : 1
+}

@@ -1,0 +1,7 @@
+Fonctions sont disponibles via le plugin :
+.PWRON (allumer l'ampli)
+.PWROFF (éteindre l'ampli)
+.VOLUP (monter le volume)
+.VOLDOWN (baisser le volume)
+.MUTE (couper le son)
+.UNMUTE (remettre le son)
