@@ -43,8 +43,8 @@ class onkyo extends eqLogic {
 			"03" => array("Dimmer Level Shut-Off", "action", "other"),
 			"08" => array("Dimmer Level Bright & LED OFF", "action", "other")
 		),
-/*		"SLI" => array(
-			"configuration" => array("Input Selector", "info", "other"),
+		"SLI" => array(
+			"configuration" => array("Input Selector", "info", "string"),
 			"00" => array("VCR/DVR", "action", "other"),
 			"01" => array("CBL/SAT", "action", "other"),
 			"02" => array("GAME", "action", "other"),
@@ -80,9 +80,9 @@ class onkyo extends eqLogic {
 			"33" => array("DAB *5", "action", "other"),
 			"UP" => array("Selector Position Wrap-Around Up", "action", "other"),
 			"DOWN" => array("Selector Position Wrap-Around Down", "action", "other")
-		),*/
+		),
 /*		"LMD" => array(
-			"configuration" => array("Listening Mode", "info", "other"),
+			"configuration" => array("Listening Mode", "info", "string"),
 			"00" => array("STEREO", "action", "other"),
 			"01" => array("DIRECT", "action", "other"),
 			"02" => array("SURROUND", "action", "other"),
@@ -299,86 +299,8 @@ class onkyo extends eqLogic {
 	public function postInsert() {
 		log::add('onkyo', 'debug', 'postInsert()');
 		
-		foreach (self::$_onkyoCommands as $code => $value) {
-			log::add('onkyo', 'debug', 'Création des commandes '.$code.' pour l\'amplificateur '.$this->getName());
-			log::add('onkyo', 'debug', 'configuration = '.$value['configuration'][0].' - '.$value['configuration'][1].' - '.$value['configuration'][2]);
-			
-			$onkyoCmd = new onkyoCmd();
-			$onkyoCmd->setEqLogic_id($this->getId());
-			$onkyoCmd->setEqType('onkyo');
-			$onkyoCmd->setLogicalId($code);
-			if ($value['configuration'][2] == 'numeric') {
-				$onkyoCmd->setName($code);
-				$onkyoCmd->setIsVisible(0);
-			}
-			else {
-				$onkyoCmd->setName($value['configuration'][0]);
-			}
-			$onkyoCmd->setType($value['configuration'][1]);
-			$onkyoCmd->setSubType($value['configuration'][2]);
-			$onkyoCmd->save();
-			
-			$cmdId = $onkyoCmd->getId();
-			
-			if ($value['configuration'][2] == 'numeric') {
-					$onkyoCmd = new onkyoCmd();
-					$onkyoCmd->setName($value['configuration'][0]);
-					$onkyoCmd->setEqLogic_id($this->getId());
-					$onkyoCmd->setEqType('onkyo');
-					$onkyoCmd->setType('action');
-					$onkyoCmd->setSubType('slider');
-					$onkyoCmd->setValue($cmdId);
-					$onkyoCmd->save();
-			}
-			
-			log::add('onkyo', 'debug', 'commande créée : '.$cmdId);
-			
-			foreach ($value as $command => $configuration) {
-				if ($command != 'configuration') {
-					log::add('onkyo', 'debug', 'Création de la commande '.$command.' pour l\'amplificateur '.$this->getName());
-					$onkyoCmd = new onkyoCmd();
-					$onkyoCmd->setName($configuration[0]);
-					$onkyoCmd->setConfiguration('command', $code.$command);
-					$onkyoCmd->setEqLogic_id($this->getId());
-					$onkyoCmd->setEqType('onkyo');
-					$onkyoCmd->setLogicalId($code.$command);
-					$onkyoCmd->setType($configuration[1]);
-					$onkyoCmd->setSubType($configuration[2]);
-					$onkyoCmd->setValue($cmdId);
-					$onkyoCmd->setIsVisible(0);
-					$onkyoCmd->save();
-				}
-			}
-		}
-		
-		// Création des commandes de l'amplificateur
-//		foreach (self::$_onkyoCommands as $command => $configuration) {
-//			log::add('onkyo', 'debug', 'Création de la commande '.$command.' pour l\'amplificateur '.$this->getName());
-//		
-//			$onkyoCmd = new onkyoCmd();
-//			$onkyoCmd->setName($command);
-//			$onkyoCmd->setEqLogic_id($this->getId());
-//			$onkyoCmd->setEqType('onkyo');
-//			$onkyoCmd->setType($configuration[2]);
-//			$onkyoCmd->setSubType($configuration[3]);
-//			$onkyoCmd->save();
-//			
-//			if ($configuration[3] == 'numeric') {
-//				$cmd_info = $onkyoCmd;
-//				
-//				$onkyoCmd = new onkyoCmd();
-//				$onkyoCmd->setType('action');
-//				$onkyoCmd->setEqLogic_id($this->getId());
-//				$onkyoCmd->setName($command.' etat');
-//				$onkyoCmd->setSubType('slider');
-//				if (is_object($cmd_info)) {
-//					$onkyoCmd->setValue($cmd_info->getId());
-//					$cmd_info->setIsVisible(0);
-//					$cmd_info->save();
-//				}
-//				$onkyoCmd->save();
-//			}
-//		}
+		onkyo::checkOnkyo($this);
+
 		log::add('onkyo', 'debug', 'Création des commandes terminée');
 	}
 	
@@ -415,6 +337,76 @@ class onkyo extends eqLogic {
 		}
 	}
 	
+	public function checkOnkyo($onkyo) {
+		foreach (onkyo::$_onkyoCommands as $code => $value) {
+			log::add('onkyo', 'debug', 'Vérification des commandes '.$code.' pour l\'amplificateur '.$onkyo->getName());
+			log::add('onkyo', 'debug', 'configuration = '.$value['configuration'][0].' - '.$value['configuration'][1].' - '.$value['configuration'][2]);
+			
+			$onkyoCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code);
+			if (!is_object($onkyoCmd)) {
+				log::add('onkyo', 'debug', 'La commande '.$code.' n\'existe pas pour l\'amplificateur '.$onkyo->getId().' -> création');
+				
+				$onkyoCmd = new onkyoCmd();
+				$onkyoCmd->setEqLogic_id($onkyo->getId());
+				$onkyoCmd->setEqType('onkyo');
+				$onkyoCmd->setLogicalId($code);
+				if ($value['configuration'][2] == 'numeric') {
+					$onkyoCmd->setName('Info '.$code);
+					$onkyoCmd->setIsVisible(0);
+				}
+				else {
+					$onkyoCmd->setName($value['configuration'][0]);
+				}
+				$onkyoCmd->setType($value['configuration'][1]);
+				$onkyoCmd->setSubType($value['configuration'][2]);
+				$onkyoCmd->save();
+			}
+			
+			$cmdId = $onkyoCmd->getId();
+			
+			if ($value['configuration'][2] == 'numeric') {
+				$onkyoCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code.'SLIDER');
+				if (!is_object($onkyoCmd)) {
+					log::add('onkyo', 'debug', 'La commande '.$code.'SLIDER'.' n\'existe pas pour l\'amplificateur '.$onkyo->getId().' -> création');
+					$onkyoCmd = new onkyoCmd();
+					$onkyoCmd->setEqLogic_id($onkyo->getId());
+					$onkyoCmd->setEqType('onkyo');
+					$onkyoCmd->setLogicalId($code.'SLIDER');
+					$onkyoCmd->setName($value['configuration'][0]);
+					$onkyoCmd->setType('action');
+					$onkyoCmd->setSubType('slider');
+					$onkyoCmd->setValue($cmdId);
+					$onkyoCmd->save();
+				}
+			}
+
+			foreach ($value as $command => $configuration) {
+				if ($command != 'configuration') {
+					log::add('onkyo', 'debug', 'Vérification de la commande '.$code.$command.' pour l\'amplificateur '.$onkyo->getName());
+					$onkyoCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code.$command);
+					if (!is_object($onkyoCmd)) {
+						log::add('onkyo', 'debug', 'La commande '.$code.$command.' n\'existe pas pour l\'amplificateur '.$onkyo->getId());
+						$onkyoCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code.$command);
+						if (!is_object($onkyoCmd)) {
+							log::add('onkyo', 'debug', 'La commande '.$code.$command.'SLIDER'.' n\'existe pas pour l\'amplificateur '.$onkyo->getId().' -> création');
+							$onkyoCmd = new onkyoCmd();
+							$onkyoCmd->setEqLogic_id($onkyo->getId());
+							$onkyoCmd->setEqType('onkyo');
+							$onkyoCmd->setLogicalId($code.$command);
+							$onkyoCmd->setName($configuration[0]);
+							$onkyoCmd->setConfiguration('command', $code.$command);
+							$onkyoCmd->setType($configuration[1]);
+							$onkyoCmd->setSubType($configuration[2]);
+							$onkyoCmd->setIsVisible(0);
+							$onkyoCmd->setValue($cmdId);
+							$onkyoCmd->save();
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public function createNode($onkyo) {
 		$onkyoIp = filter_var($onkyo->getConfiguration('onkyo_ip'), FILTER_VALIDATE_IP);
 		$onkyoPort = (is_numeric($onkyo->getConfiguration('onkyo_port', 60128)) && $onkyo->getConfiguration('onkyo_port', 60128) > 0 && $onkyo->getConfiguration('onkyo_port', 60128) < 65537 ? true : false);
@@ -427,7 +419,7 @@ class onkyo extends eqLogic {
 				// Actualisation des états
 				log::add('onkyo', 'debug', 'Actualisation des états');
 				
-				$cmds = onkyoCmd::byEqLogicId($onkyo->getId(), 'info', 'true');
+				$cmds = onkyoCmd::byEqLogicId($onkyo->getId(), 'info');
 				
 				foreach ($cmds as $cmd) {
 					log::add('onkyo', 'debug', '-> actualisation état '.$cmd->getLogicalId());
@@ -460,10 +452,18 @@ class onkyo extends eqLogic {
 	
 	public function postUpdate() {
 		log::add('onkyo', 'debug', 'postUpdate()');
+		
+		onkyo::checkOnkyo($this);
 	}
 	
 	public function preRemove() {
 		log::add('onkyo', 'debug', 'preRemove()');
+		if (onkyo::callbackCmd('{"action":"removeNode","id":'.$this->getId().'}', false)) {
+			log::add('onkyo', 'info', 'noeud déconnecté');
+		}
+		else {
+			log::add('onkyo', 'error', 'erreur lors de la déconnexion du noeud');
+		}
 	}
 	
 	public function postRemove() {
@@ -515,7 +515,7 @@ class onkyoCmd extends cmd {
 					case 'slider':
 						$infoCmd = cmd::byId($this->getValue());
 						$value = $_options['slider'];
-						if ($infoCmd->getName() == 'MVL') {
+						if ($infoCmd->getLogicalId() == 'MVL') {
 							$value = strtoupper(dechex($value));
 							if (strlen($value) == 1) $value = '0'.$value;
 						}

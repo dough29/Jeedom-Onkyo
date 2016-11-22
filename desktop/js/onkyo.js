@@ -27,7 +27,7 @@ function addCmdToTable(_cmd) {
 	}
 	var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
 		tr += '<td><span class="cmdAttr" data-l1key="id"></span></td>';
-	    tr += '<td><span class="cmdAttr" data-l1key="name"></span></td>';
+	    tr += '<td><input class="cmdAttr form-control input-sm" data-l1key="name" style="width : 140px;" placeholder="{{Nom}}"></td>';
 		tr += '<td><span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/></span></td>';
 		tr += '<td>';
 		if (is_numeric(_cmd.id)) {

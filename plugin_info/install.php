@@ -22,6 +22,15 @@ function onkyo_install() {
 	log::add('onkyo', 'debug', 'onkyo_install()');
 }
 
+function onkyo_update() {
+	log::add('onkyo', 'debug', 'onkyo_update()');
+	
+	$onkyos = onkyo::byType('onkyo', true);
+	foreach ($onkyos as $onkyo) {
+		onkyo::checkOnkyo($onkyo);
+	}
+}
+
 function onkyo_remove() {
 	log::add('onkyo', 'debug', 'onkyo_remove()');
 }
