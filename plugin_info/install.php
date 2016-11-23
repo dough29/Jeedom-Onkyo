@@ -27,6 +27,7 @@ function onkyo_update() {
 	
 	$onkyos = onkyo::byType('onkyo', true);
 	foreach ($onkyos as $onkyo) {
+		onkyo::cleanOnkyo($onkyo);
 		onkyo::checkOnkyo($onkyo);
 	}
 }

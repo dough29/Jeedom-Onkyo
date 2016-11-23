@@ -175,6 +175,23 @@ class onkyo extends eqLogic {
 			"03" => array("Late Night Auto@Dolby TrueHD", "action", "other"),
 			"UP" => array("Late Night State Wrap-Around Up", "action", "other")
 		),
+		
+		// Zone 2
+		"ZPW" => array(
+			"configuration" => array("Zone2 Power", "info", "binary"),
+			"00" => array("Zone2 Standby", "action", "other"),
+			"01" => array("Zone2 On", "action", "other")
+		),
+		"ZMT" => array(
+			"configuration" => array("Zone2 Muting", "info", "binary"),
+			"00" => array("Zone2 Muting Off", "action", "other"),
+			"01" => array("Zone2 Muting On", "action", "other")
+		),
+		"ZVL" => array(
+			"configuration" => array("Zone2 Volume", "info", "numeric"),
+			"UP" => array("Zone2 Level Up", "action", "other"),
+			"DOWN" => array("Zone2 Level Down", "action", "other")
+		),
 	);
 	
 	public static function deamon_info() {
@@ -291,18 +308,6 @@ class onkyo extends eqLogic {
 		$resource_path = realpath(dirname(__FILE__) . '/../../resources');
 		passthru('/bin/bash ' . $resource_path . '/onkyoDep.sh ' . $resource_path . ' > ' . log::getPathToLog('onkyo_dep') . ' 2>&1 &');
 	}
-
-	public function preInsert() {
-		log::add('onkyo', 'debug', 'preInsert()');
-	}
-	
-	public function postInsert() {
-		log::add('onkyo', 'debug', 'postInsert()');
-		
-		onkyo::checkOnkyo($this);
-
-		log::add('onkyo', 'debug', 'Création des commandes terminée');
-	}
 	
 	public function preSave() {
 		log::add('onkyo', 'debug', 'preSave()');
@@ -325,6 +330,14 @@ class onkyo extends eqLogic {
 			}
 		}
 	}
+
+	public function preInsert() {
+		log::add('onkyo', 'debug', 'preInsert()');
+	}
+	
+	public function postInsert() {
+		log::add('onkyo', 'debug', 'postInsert()');
+	}
 	
 	public function postSave() {
 		log::add('onkyo', 'debug', 'postSave()');
@@ -335,9 +348,51 @@ class onkyo extends eqLogic {
 		else {
 			log::add('onkyo', 'info', 'l\'équipement n\'est pas activé');
 		}
+		
+		onkyo::checkOnkyo($this);
+	}
+	
+	public function postAjax() {
+		log::add('onkyo', 'debug', 'postAjax()');
+		
+		onkyo::cleanOnkyo($this);
+	}
+	
+	public function cleanOnkyo($onkyo) {
+		// Nettoyage des commandes
+		$cmds = onkyoCmd::byEqLogicId($onkyo->getId());
+		
+		foreach ($cmds as $cmd) {
+			log::add('onkyo', 'debug', 'Vérification de la commande '.$cmd->getLogicalId());
+			if (strlen($cmd->getLogicalId()) == 3) {
+				$code = $cmd->getLogicalId();
+				if (!isset(onkyo::$_onkyoCommands[$code])) {
+					log::add('onkyo', 'debug', '-> La commande '.$code.' n\'existe pas : suppression');
+					$cmd->remove();
+					
+					// Si type numeric il faut aussi supprimer le slider
+					if ('numeric' == $cmd->getSubType()) {
+						$sliderCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code.'SLIDER');
+						if (is_object($sliderCmd)) {
+							log::add('onkyo', 'debug', '-> Suppression du slider lié à la commande '.$code);
+							$sliderCmd->remove();
+						}
+					}
+				}
+			}
+			elseif (strlen($cmd->getLogicalId()) > 3) {
+				$code = substr($cmd->getLogicalId(), 0, 3);
+				$command = substr($cmd->getLogicalId(), 3, strlen($cmd->getLogicalId())-3);
+				if (!isset(onkyo::$_onkyoCommands[$code][$command]) && 'SLIDER' != $command) {
+					log::add('onkyo', 'debug', '-> La commande '.$code.$command.' n\'existe pas : suppression');
+					$cmd->remove();
+				}
+			}
+		}
 	}
 	
 	public function checkOnkyo($onkyo) {
+		// Création des commandes
 		foreach (onkyo::$_onkyoCommands as $code => $value) {
 			log::add('onkyo', 'debug', 'Vérification des commandes '.$code.' pour l\'amplificateur '.$onkyo->getName());
 			log::add('onkyo', 'debug', 'configuration = '.$value['configuration'][0].' - '.$value['configuration'][1].' - '.$value['configuration'][2]);
@@ -388,7 +443,7 @@ class onkyo extends eqLogic {
 						log::add('onkyo', 'debug', 'La commande '.$code.$command.' n\'existe pas pour l\'amplificateur '.$onkyo->getId());
 						$onkyoCmd = onkyoCmd::byEqLogicIdAndLogicalId($onkyo->getId(), $code.$command);
 						if (!is_object($onkyoCmd)) {
-							log::add('onkyo', 'debug', 'La commande '.$code.$command.'SLIDER'.' n\'existe pas pour l\'amplificateur '.$onkyo->getId().' -> création');
+							log::add('onkyo', 'debug', 'La commande '.$code.$command.' n\'existe pas pour l\'amplificateur '.$onkyo->getId().' -> création');
 							$onkyoCmd = new onkyoCmd();
 							$onkyoCmd->setEqLogic_id($onkyo->getId());
 							$onkyoCmd->setEqType('onkyo');
@@ -405,6 +460,7 @@ class onkyo extends eqLogic {
 				}
 			}
 		}
+		log::add('onkyo', 'debug', 'Création des commandes terminée');
 	}
 	
 	public function createNode($onkyo) {
@@ -452,17 +508,23 @@ class onkyo extends eqLogic {
 	
 	public function postUpdate() {
 		log::add('onkyo', 'debug', 'postUpdate()');
-		
-		onkyo::checkOnkyo($this);
 	}
 	
 	public function preRemove() {
 		log::add('onkyo', 'debug', 'preRemove()');
-		if (onkyo::callbackCmd('{"action":"removeNode","id":'.$this->getId().'}', false)) {
-			log::add('onkyo', 'info', 'noeud déconnecté');
+		
+		$connectedOnkyos = json_decode(onkyo::callbackCmd('{"action":"getNode","id":'.$this->getId().'}', true));
+		
+		if (count($connectedOnkyos) > 0) {
+			if (onkyo::callbackCmd('{"action":"removeNode","id":'.$this->getId().'}', false)) {
+				log::add('onkyo', 'info', 'noeud déconnecté');
+			}
+			else {
+				log::add('onkyo', 'error', 'erreur lors de la déconnexion du noeud');
+			}
 		}
 		else {
-			log::add('onkyo', 'error', 'erreur lors de la déconnexion du noeud');
+			log::add('onkyo', 'info', 'le noeud n\'était pas connecté');
 		}
 	}
 	
@@ -500,6 +562,14 @@ class onkyo extends eqLogic {
 }
 
 class onkyoCmd extends cmd {
+	public function preRemove() {
+		log::add('onkyo', 'debug', 'onkyoCmd::preRemove()');
+	}
+
+	public function postRemove() {
+		log::add('onkyo', 'debug', 'onkyoCmd::postRemove()');
+	}
+
 	public function execute($_options = null) {
 		log::add('onkyo', 'debug', 'execute()');
 		

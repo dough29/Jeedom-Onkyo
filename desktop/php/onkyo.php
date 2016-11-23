@@ -171,8 +171,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<table id="table_cmd" class="table table-bordered table-condensed">
 					<thead>
 						<tr>
-							<th style="width: 50px;">#</th>
+							<th style="width: 100px;">#</th>
 							<th>{{Nom}}</th>
+							<th>{{Commande native}}</th>
 							<th style="width: 200px;">{{Paramètres}}</th>
 							<th style="width: 100px;"></th>
 						</tr>
