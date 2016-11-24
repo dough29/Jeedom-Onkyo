@@ -82,7 +82,11 @@ var callbackServer = net.createServer((c) => {
 					break;
 				case 'sendCmd':
 					logger('DEBUG', '->sendCmd: id='+cmd.id+'; command='+cmd.command);
-					onkyo.raw({id:cmd.id, message:cmd.command});
+					onkyo.raw({id:cmd.id, message:cmd.command}, function (err) {
+						if (err) {
+							logger('ERROR', 'ERROR - sending command:'+err);
+						}
+					});
 					c.write('{"result":"success", "messageSent":"'+cmd.command+'"}\n');
 					break;
 				default:
