@@ -21,6 +21,14 @@ process.argv.forEach(function(val, index, array) {
 
 onkyo = new events.EventEmitter();
 
+onkyo.on('error', (err) => {
+	logger('ERROR', 'ERROR - keeping process alive:'+err);
+});
+
+onkyo.on('uncaughtException', function (err) {
+	logger('ERROR', 'UNCAUGHT EXCEPTION - keeping process alive:'+err);
+});
+
 
 
 /*

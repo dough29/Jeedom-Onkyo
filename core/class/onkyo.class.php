@@ -428,6 +428,8 @@ class onkyo extends eqLogic {
 					$onkyoCmd->setEqType('onkyo');
 					$onkyoCmd->setLogicalId($code.'SLIDER');
 					$onkyoCmd->setName($value['configuration'][0]);
+					$onkyoCmd->setConfiguration('minValue', 0);
+					$onkyoCmd->setConfiguration('maxValue', 80);
 					$onkyoCmd->setType('action');
 					$onkyoCmd->setSubType('slider');
 					$onkyoCmd->setValue($cmdId);
