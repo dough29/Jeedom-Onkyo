@@ -138,7 +138,7 @@ onkyo.connect = function (id, name, host, port) {
 		logger('DEBUG', '################################################');
 		
 		// On ne conserve que les caractères nécessaires
-		var messages = data.toString().replace(/[^\x21-\x7E\xC0-\xFF]/gi, '');
+		var messages = data.toString().replace(/[^\x20-\x7E\xC0-\xFF]/gi, '');
 		messages = messages.replace('ISCP\'!1', 'ISCP!1');
 		
 		messages = messages.split('ISCP!1');

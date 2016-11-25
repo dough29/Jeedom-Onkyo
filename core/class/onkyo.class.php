@@ -175,6 +175,37 @@ class onkyo extends eqLogic {
 			"03" => array("Late Night Auto@Dolby TrueHD", "action", "other"),
 			"UP" => array("Late Night State Wrap-Around Up", "action", "other")
 		),
+		"HDO" => array(
+			"configuration" => array("HDMI Output Selector", "info", "string"),
+			"00" => array("Analog", "action", "other"),
+			"01" => array("HDMI Main", "action", "other"),
+			"02" => array("HDMI Sub", "action", "other"),
+			"03" => array("Both Main+Sub", "action", "other"),
+			"04" => array("Both(Main)", "action", "other"),
+			"05" => array("Both(Sub)", "action", "other"),
+			"UP" => array("HDMI Out Selector Wrap-Around Up", "action", "other")
+		),
+		"RES" => array(
+			"configuration" => array("Monitor Out Resolution", "info", "string"),			
+			"00" => array("Through", "action", "other"),
+			"01" => array("Auto(HDMI Output Only)", "action", "other"),
+			"02" => array("480p", "action", "other"),
+			"03" => array("720p", "action", "other"),
+			"13" => array("1680x720p", "action", "other"),
+			"04" => array("1080i", "action", "other"),
+			"05" => array("1080p(HDMI Output Only)", "action", "other"),
+			"07" => array("1080p/24fs(HDMI Output Only)", "action", "other"),
+			"15" => array("2560x1080p", "action", "other"),
+			"08" => array("4K Upcaling(HDMI Output Only) 4K", "action", "other"),
+			"06" => array("Source", "action", "other"),
+			"UP" => array("Monitor Out Resolution Wrap-Around Up", "action", "other")
+		),
+		"CEC" => array(
+			"configuration" => array("HDMI CEC", "info", "string"),			
+			"00" => array("Off", "action", "other"),
+			"01" => array("On", "action", "other"),
+			"UP" => array("HDMI CEC Wrap-Around Up", "action", "other")
+		),
 		
 		// Zone 2
 		"ZPW" => array(
@@ -192,6 +223,93 @@ class onkyo extends eqLogic {
 			"UP" => array("Zone2 Level Up", "action", "other"),
 			"DOWN" => array("Zone2 Level Down", "action", "other")
 		),
+		
+		// NET
+		/*"NTC" => array(
+			"configuration" => array("Network/USB Operation", "info", "string"),
+			"PLAY" => array("PLAY KEY", "action", "other"),
+			"STOP" => array("STOP KEY", "action", "other"),
+			"PAUSE" => array("PAUSE KEY", "action", "other"),
+			"TRUP" => array("TRACK UP KEY", "action", "other"),
+			"TRDN" => array("TRACK DOWN KEY", "action", "other"),
+			"FF" => array("FF KEY (CONTINUOUS*)", "action", "other"),
+			"REW" => array("REW KEY (CONTINUOUS*)", "action", "other"),
+			"REPEAT" => array("REPEAT KEY", "action", "other"),
+			"RANDOM" => array("RANDOM KEY", "action", "other"),
+			"DISPLAY" => array("DISPLAY KEY", "action", "other"),
+			"ALBUM" => array("ALBUM KEY", "action", "other"),
+			"ARTIST" => array("ARTIST KEY", "action", "other"),
+			"GENRE" => array("GENRE KEY", "action", "other"),
+			"PLAYLIST" => array("PLAYLIST KEY", "action", "other"),
+			"RIGHT" => array("RIGHT KEY", "action", "other"),
+			"LEFT" => array("LEFT KEY", "action", "other"),
+			"UP" => array("UP KEY", "action", "other"),
+			"DOWN" => array("DOWN KEY", "action", "other"),
+			"SELECT" => array("SELECT KEY", "action", "other"),
+			"0" => array("0 KEY", "action", "other"),
+			"1" => array("1 KEY", "action", "other"),
+			"2" => array("2 KEY", "action", "other"),
+			"3" => array("3 KEY", "action", "other"),
+			"4" => array("4 KEY", "action", "other"),
+			"5" => array("5 KEY", "action", "other"),
+			"6" => array("6 KEY", "action", "other"),
+			"7" => array("7 KEY", "action", "other"),
+			"8" => array("8 KEY", "action", "other"),
+			"9" => array("9 KEY", "action", "other"),
+			"DELETE" => array("DELETE KEY", "action", "other"),
+			"CAPS" => array("CAPS KEY", "action", "other"),
+			"LOCATION" => array("LOCATION KEY", "action", "other"),
+			"LANGUAGE" => array("LANGUAGE KEY", "action", "other"),
+			"SETUP" => array("SETUP KEY", "action", "other"),
+			"RETURN" => array("RETURN KEY", "action", "other"),
+			"CHUP" => array("CH UP(for iRadio)", "action", "other"),
+			"CHDN" => array("CH DOWN(for iRadio)", "action", "other"),
+			"MENU" => array("MENU", "action", "other"),
+			"TOP" => array("TOP MENU", "action", "other"),
+			"MODE" => array("MODE(for iPod) STD<->EXTMODE", "action", "other"),
+			"LIST" => array("LIST <-> PLAYBACK", "action", "other"),
+			"F1" => array("Positive Feed or Mark/Unmark *1", "action", "other"),
+			"F2" => array("Negative Feed *1", "action", "other")
+		),*/
+		"NAT" => array(
+			"configuration" => array("NET/USB Artist Name Info", "info", "string")
+		),
+		"NAL" => array(
+			"configuration" => array("NET/USB Album Name Info", "info", "string")
+		),
+		"NTI" => array(
+			"configuration" => array("NET/USB Title Name", "info", "string")
+		),
+		"NTM" => array(
+			"configuration" => array("NET/USB Time Info", "info", "string")
+		),
+		"NTR" => array(
+			"configuration" => array("NET/USB Track Info", "info", "string")
+		),
+		"NST" => array(
+			"configuration" => array("NET/USB Play Status", "info", "string")
+		),
+		/*"NPR" => array(
+			"configuration" => array("Internet Radio Preset", "info", "string")
+		),*/
+		/*"NLS" => array(
+			"configuration" => array("NET/USB List Info", "info", "string")
+		),*/
+		/*"NJA" => array(
+			"configuration" => array("NET/USB Jacket Art", "info", "string"),
+			"DIS" => array("Jacket Art disable", "action", "other"),
+			"ENA" => array("Jacket Art enable", "action", "other"),
+			"BMP" => array("Jacket Art enable and Image type BMP", "action", "other"),
+			"LINK" => array("Jacket Art enable and Image type LINK", "action", "other"),
+			"UP" => array("Jacket Art Wrap-Around Up", "action", "other"),
+			"REQ" => array("Jacket Art data", "action", "other")
+		),*/
+		/*"NSV" => array(
+			"configuration" => array("NET Service", "action", "message")
+		),*/
+		/*"NPU" => array(
+			"configuration" => array("NET Popup Message", "info", "string")
+		),*/
 	);
 	
 	public static function deamon_info() {

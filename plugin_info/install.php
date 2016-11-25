@@ -22,6 +22,10 @@ function onkyo_install() {
 	log::add('onkyo', 'debug', 'onkyo_install()');
 }
 
+function onkyo_pre_update() {
+	log::add('onkyo', 'debug', 'onkyo_pre_update()');
+}
+
 function onkyo_update() {
 	log::add('onkyo', 'debug', 'onkyo_update()');
 	
