@@ -202,9 +202,14 @@ class onkyo extends eqLogic {
 		),
 		"CEC" => array(
 			"configuration" => array("HDMI CEC", "info", "string"),			
-			"00" => array("Off", "action", "other"),
-			"01" => array("On", "action", "other"),
+			"00" => array("CEC Off", "action", "other"),
+			"01" => array("CEC On", "action", "other"),
 			"UP" => array("HDMI CEC Wrap-Around Up", "action", "other")
+		),
+		"SLP" => array(
+			"configuration" => array("Sleep", "info", "numeric"),			
+			"OFF" => array("Sleep Off", "action", "other"),
+			"UP" => array("Sleep Time Wrap-Around UP", "action", "other")
 		),
 		
 		// Zone 2
@@ -705,11 +710,11 @@ class onkyoCmd extends cmd {
 					case 'slider':
 						$infoCmd = cmd::byId($this->getValue());
 						$value = $_options['slider'];
-						if ($infoCmd->getLogicalId() == 'MVL') {
-							$value = strtoupper(dechex($value));
-							if (strlen($value) == 1) $value = '0'.$value;
-						}
-						$result = onkyoCmd::sendToController('{"action":"sendCmd","id":'.$this->getEqLogic_id().',"command":"MVL'.$value.'"}');
+						//if ($infoCmd->getLogicalId() == 'MVL' || $infoCmd->getLogicalId() == 'ZVL') {
+						$value = strtoupper(dechex($value));
+						if (strlen($value) == 1) $value = '0'.$value;
+						//}
+						$result = onkyoCmd::sendToController('{"action":"sendCmd","id":'.$this->getEqLogic_id().',"command":"'.$infoCmd->getLogicalId().$value.'"}');
 						break;
 					case 'other':
 						$result = onkyoCmd::sendToController('{"action":"sendCmd","id":'.$this->getEqLogic_id().',"command":"'.$this->getConfiguration('command').'"}');
