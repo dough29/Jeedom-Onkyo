@@ -168,6 +168,8 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 			</div>
 			<div role="tabpanel" class="tab-pane" id="commandtab">
+				<br/>
+				<a class="btn btn-success btn-sm pull-right cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/>
 				<table id="table_cmd" class="table table-bordered table-condensed">
 					<thead>
 						<tr>
