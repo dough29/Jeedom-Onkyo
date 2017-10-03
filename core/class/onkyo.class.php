@@ -315,6 +315,10 @@ class onkyo extends eqLogic {
 		/*"NPU" => array(
 			"configuration" => array("NET Popup Message", "info", "string")
 		),*/
+		"AVS" => array(
+			"configuration" => array("AVS", "info", "numeric", 120),
+			"-110" => array("AVS-110", "action", "other")
+		),
 	);
 	
 	public static function deamon_info() {
