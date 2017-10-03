@@ -29,10 +29,6 @@ function addCmdToTable(_cmd) {
 		tr += '<td><span class="cmdAttr" data-l1key="id"></span></td>';
 	    tr += '<td><input class="cmdAttr form-control input-sm" data-l1key="name" placeholder="{{Nom}}"></td>';
 	    tr += '<td><span class="cmdAttr" data-l1key="logicalId"></span></td>';
-		tr += '<td><span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>';
-		if (_cmd.type == 'info') {
-			tr += '<br><input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>';
-		}
 		if (_cmd.type == 'action' && _cmd.subType == 'slider') {
 			tr += '<br><input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width : 40%;display : inline-block;">';
 			tr += '<br><input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width : 40%;display : inline-block;">';
