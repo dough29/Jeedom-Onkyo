@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3.dev">
-<title>Roomba</title>
+<title>Description</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -415,12 +415,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_roomba">1. Roomba</a>
+<li><a href="#_description">1. Description</a>
 <ul class="sectlevel2">
-<li><a href="#_beschreibung">1.1. Beschreibung</a></li>
-<li><a href="#_konfiguration">1.2. Konfiguration</a></li>
-<li><a href="#_utilisation">1.3. Utilisation</a></li>
-<li><a href="#_changelog">1.4. Changelog</a></li>
+<li><a href="#_plugin_de_gestion_des_amplificateurs_de_la_marque_onkyo">1.1. Plugin de gestion des amplificateurs de la marque Onkyo</a></li>
+</ul>
+</li>
+<li><a href="#_configuration">2. Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_configuration_du_plugin">2.1. Configuration du plugin</a></li>
+</ul>
+</li>
+<li><a href="#_installation_des_dépendances">3. Installation des dépendances</a></li>
+<li><a href="#_lancement_du_service">4. Lancement du service</a></li>
+<li><a href="#_ajout_d_un_amplificateurs">5. Ajout d&#8217;un amplificateurs</a></li>
+<li><a href="#_en_cas_de_problème">6. En cas de problème</a></li>
+<li><a href="#_changelog">7. Changelog</a>
+<ul class="sectlevel3">
+<li><a href="#_version_2_7_10_10_2017">7.1. Version 2.7 - 10/10/2017</a></li>
+<li><a href="#_version_2_6_3_10_2017">7.2. Version 2.6 - 3/10/2017</a></li>
+<li><a href="#_version_2_5_30_11_2016">7.3. Version 2.5 - 30/11/2016</a></li>
+<li><a href="#_version_2_4_25_11_2016">7.4. Version 2.4 - 25/11/2016</a></li>
+<li><a href="#_version_2_3_24_11_2016">7.5. Version 2.3 - 24/11/2016</a></li>
+<li><a href="#_version_2_2_23_11_2016">7.6. Version 2.2 - 23/11/2016</a></li>
+<li><a href="#_version_2_1_22_11_2016">7.7. Version 2.1 - 22/11/2016</a></li>
+<li><a href="#_version_2_21_11_2016">7.8. Version 2 - 21/11/2016</a></li>
 </ul>
 </li>
 </ul>
@@ -428,46 +446,162 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_roomba">1. Roomba</h2>
+<h2 id="_description">1. Description</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_beschreibung">1.1. Beschreibung</h3>
+<h3 id="_plugin_de_gestion_des_amplificateurs_de_la_marque_onkyo">1.1. Plugin de gestion des amplificateurs de la marque Onkyo</h3>
 <div class="paragraph">
-<p>Plugin pour commander votre amplificateur Onkyo</p>
+<p>Ce plugin permet d&#8217;interagir avec vos amplificateurs home-cinéma de la marque Onkyo.</p>
 </div>
 <hr>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">2. Configuration</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_konfiguration">1.2. Konfiguration</h3>
+<h3 id="_configuration_du_plugin">2.1. Configuration du plugin</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_des_dépendances">3. Installation des dépendances</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Pour utiliser votre amplificateur Onkyo avec Jeedon, vous devez configurer l&#8217;adresse IP de l&#8217;amplificateur.</p>
+<p>Le plugin utilise un noeud Node.JS pour gérer les échanges entre vos amplificateurs et Jeedom.</p>
+</div>
+<div class="paragraph">
+<p>Une fois le plugin installé se rendre sur l&#8217;écran de configuration "Plugins &gt; Gestion des plugins : Onkyo" et cliquer sur "Relancer" dans l&#8217;encart "Dépendances".</p>
+</div>
+<div class="paragraph">
+<p>Le processus est automatisé et prendre environ 5 minutes (selon environnement et machine).</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez suivre l&#8217;avancement sur l&#8217;écran "Analyse &gt; Logs : onkyo_dep".</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lancement_du_service">4. Lancement du service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le port d&#8217;écoute du service d&#8217;interface est paramétrable mais il n&#8217;est pas nécessaire de le modifier si ce port est libre sur votre machine.</p>
+</div>
+<div class="paragraph">
+<p>Dans l&#8217;éncart "Démon" cliquer sur "Démarrer" pour lancer le service.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ajout_d_un_amplificateurs">5. Ajout d&#8217;un amplificateurs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rendez vous sur l&#8217;écran "Plugins &gt; Multimédia &gt; Onkyo" puis cliquer sur "Ajouter".</p>
+</div>
+<div class="paragraph">
+<p>Renseigner ensuite le nom de votre amplificateur (ex. "Ampli salon", "TX-NR626", &#8230;&#8203;) et validez.</p>
+</div>
+<div class="paragraph">
+<p>Renseigner enfin l&#8217;adresse IP de votre amplificateur et mettre "Activé" sur "Oui" puis sauvegarder.</p>
+</div>
+<div class="paragraph">
+<p>Si la configuration est suffisante l&#8217;amplificateur sera ajouté aux équipements gérés par le démon.</p>
+</div>
+<div class="paragraph">
+<p>Pour afficher les états/commandes sur le dahsboard affecter l&#8217;amplificateur à un objet parent et mettre "Visible" sur "Oui".</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_en_cas_de_problème">6. En cas de problème</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En cas de problème de fonctionnement il faut passer le niveau de log à "Debug" sur l&#8217;écran de configuration du plugin Onkyo.</p>
+</div>
+<div class="paragraph">
+<p>Attention : après tout changement de niveau de log il est nécessaire de redémarrer le démon pour prendre en compte le changement.</p>
+</div>
+<div class="paragraph">
+<p>Une fois fait reproduire le problème, consulter les logs qui devraient indiquer la piste à suivre.</p>
+</div>
+<div class="paragraph">
+<p>Si le problème persiste ou ne trouve pas de solution rendez-vous sur le forum avec le détail des logs.</p>
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="_utilisation">1.3. Utilisation</h3>
+</div>
+<div class="sect1">
+<h2 id="_changelog">7. Changelog</h2>
+<div class="sectionbody">
+<div class="sect3">
+<h4 id="_version_2_7_10_10_2017">7.1. Version 2.7 - 10/10/2017</h4>
 <div class="paragraph">
-<p>Fonctions sont disponibles via le plugin :
-.PWRON (allumer l&#8217;ampli)
-.PWROFF (éteindre l&#8217;ampli)
-.VOLUP (monter le volume)
-.VOLDOWN (baisser le volume)
-.MUTE (couper le son)
-.UNMUTE (remettre le son)</p>
+<p>Amélioration de l&#8217;écran de gestion du plugin avec accès direct à l&#8217;écran "Configuration"</p>
 </div>
-<hr>
 </div>
-<div class="sect2">
-<h3 id="_changelog">1.4. Changelog</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>V0.2 : Initialisation de la documentation</p>
-</li>
-<li>
-<p>V0.1 : Première Release</p>
-</li>
-</ul>
+<div class="sect3">
+<h4 id="_version_2_6_3_10_2017">7.2. Version 2.6 - 3/10/2017</h4>
+<div class="paragraph">
+<p>Suppression bootstrap
+Compatibilité Jeedom 3.1
+Amélioration de la gestion des dépendances</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_5_30_11_2016">7.3. Version 2.5 - 30/11/2016</h4>
+<div class="paragraph">
+<p>Ajout commande "Sleep" (SLP)
+Révision des noms des commandes CEC : CEC Off et CEC On
+Correction d&#8217;un bug lors des actions sur les slider</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_4_25_11_2016">7.4. Version 2.4 - 25/11/2016</h4>
+<div class="paragraph">
+<p>Ajout de la gestion des commandes :
+- HDO (HDMI Output Selector)
+- RES (Monitor Out Resolution)
+- CEC (HDMI CEC)
+- NAT (NET/USB Artist Name Info)
+- NAL (NET/USB Album Name Info)
+- NTI (NET/USB Title Name)
+- NTM (NET/USB Time Info)
+- NTR (NET/USB Track Info)
+- NST (NET/USB Play Status)
+Correctif du Node.JS pour gérer les espaces</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_3_24_11_2016">7.5. Version 2.3 - 24/11/2016</h4>
+<div class="paragraph">
+<p>Ajout des notions min/MAX sur le slider de gestion du volume
+Amélioration de la gestion d&#8217;erreur du node.js</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_2_23_11_2016">7.6. Version 2.2 - 23/11/2016</h4>
+<div class="paragraph">
+<p>Ajout de commandes pour la gestion de la Zone 2
+Amélioration de la création/actualisation des commandes
+Amélioration de la gestion de démon lors de la suppression d&#8217;un équipement
+Ajout de la colonne "Commande native" sur l&#8217;écran de gestion des commandes</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_1_22_11_2016">7.7. Version 2.1 - 22/11/2016</h4>
+<div class="paragraph">
+<p>Ajout de la gestion du sélecteur de source
+Amélioration de l&#8217;actualisation des états
+Amélioration de la gestion des commandes
+Il est désormais possible de modifier le nom des commandes</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_2_21_11_2016">7.8. Version 2 - 21/11/2016</h4>
+<div class="paragraph">
+<p>Nouvelle version 2.0</p>
 </div>
 </div>
 </div>

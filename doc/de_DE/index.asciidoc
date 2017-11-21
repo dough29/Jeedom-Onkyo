@@ -1,16 +1,10 @@
-== Roomba
-
-=== Beschreibung
-Plugin pour commander votre amplificateur Onkyo
+== Description
+include::presentation.asciidoc[]
 
 '''
-=== Konfiguration
+== Configuration
 include::configuration.asciidoc[]
 
 '''
-=== Utilisation
-include::utilisation.asciidoc[]
-
-'''
-=== Changelog
+== Changelog
 include::changelog.asciidoc[]
