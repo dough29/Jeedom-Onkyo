@@ -49,4 +49,4 @@ Il est désormais possible de modifier le nom des commandes
 
 ==== Version 2 - 21/11/2016
 
-Nouvelle version 2.0
+Neue Version 2.0
