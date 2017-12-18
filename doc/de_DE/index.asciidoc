@@ -6,5 +6,5 @@ include::presentation.asciidoc[]
 include::configuration.asciidoc[]
 
 '''
-== Changelog
+== Änderungsprotokoll
 include::changelog.asciidoc[]
