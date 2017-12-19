@@ -1,4 +1,4 @@
-== Description
+== Beschreibung
 include::presentation.asciidoc[]
 
 '''
