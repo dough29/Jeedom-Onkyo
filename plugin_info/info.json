@@ -1,10 +1,14 @@
 {
 	"id" : "onkyo",
 	"name" : "onkyo",
+	"description" : "Plugin pour piloter les amplificateurs de la marque Onkyo",
 	"licence" : "AGPL",
 	"author" : "Damien alias Dough <dough29@gmail.com>",
 	"require" : "3.1",
 	"category" : "multimedia",
 	"hasDependency" : 1,
-	"hasOwnDeamon" : 1
+	"hasOwnDeamon" : 1,
+	"language" : ["fr_FR"],
+	"changelog" : "https://github.com/dough29/Jeedom-Onkyo/blob/stable/doc/fr_FR/changelog.asciidoc",
+	"documentation" : "https://github.com/dough29/Jeedom-Onkyo/blob/stable/doc/fr_FR/configuration.asciidoc"
 }

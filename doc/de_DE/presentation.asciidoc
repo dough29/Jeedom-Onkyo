@@ -1,3 +1,0 @@
-=== Plugin de gestion des amplificateurs de la marque Onkyo
-
-Ce plugin permet d'interagir avec vos amplificateurs home-cinéma de la marque Onkyo.
