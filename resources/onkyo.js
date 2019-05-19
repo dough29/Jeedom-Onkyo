@@ -1,4 +1,4 @@
-﻿/*jslint node:true nomen:true*/
+/*jslint node:true nomen:true*/
 'use strict';
 var onkyo, send_queue,
 	nodes = [],

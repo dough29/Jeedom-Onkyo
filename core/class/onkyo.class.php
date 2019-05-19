@@ -321,7 +321,7 @@ class onkyo extends eqLogic {
 		$return = array();
 		$return['log'] = 'onkyo_node';
 		$return['state'] = 'nok';
-		$pid = trim( shell_exec ('ps ax | grep "onkyo/node/onkyoNode.js" | grep -v "grep" | wc -l') );
+		$pid = trim( shell_exec ('ps ax | grep "onkyo/resources/onkyo.js" | grep -v "grep" | wc -l') );
 		if ($pid != '' && $pid != '0') {
 			$return['state'] = 'ok';
 		}
@@ -364,9 +364,9 @@ class onkyo extends eqLogic {
 	
 	public static function launch_node($url, $port) {
 		$log = log::convertLogLevel(log::getLogLevel('onkyo'));
-		$sensor_path = realpath(dirname(__FILE__) . '/../../node');
+		$sensor_path = realpath(dirname(__FILE__) . '/../../resources');
 		
-		$cmd = 'nice -n 19 nodejs ' . $sensor_path . '/onkyoNode.js ' . $url . ' ' . $port . ' ' . $log;
+		$cmd = 'nice -n 19 nodejs ' . $sensor_path . '/onkyo.js ' . $url . ' ' . $port . ' ' . $log;
 		
 		log::add('onkyo', 'debug', 'Lancement démon onkyo : ' . $cmd);
 		
@@ -395,27 +395,27 @@ class onkyo extends eqLogic {
 	}
 
 	public static function deamon_stop() {
-		exec('kill $(ps aux | grep "onkyo/node/onkyoNode.js" | awk \'{print $2}\')');
+		exec('kill $(ps aux | grep "onkyo/resources/onkyo.js" | awk \'{print $2}\')');
 		log::add('onkyo', 'info', 'Arrêt du service onkyo');
 		$deamon_info = self::deamon_info();
 		if ($deamon_info['state'] == 'ok') {
 			sleep(1);
-			exec('kill -9 $(ps aux | grep "onkyo/node/onkyoNode.js" | awk \'{print $2}\')');
+			exec('kill -9 $(ps aux | grep "onkyo/resources/onkyo.js" | awk \'{print $2}\')');
 		}
 		$deamon_info = self::deamon_info();
 		if ($deamon_info['state'] == 'ok') {
 			sleep(1);
-			exec('sudo kill -9 $(ps aux | grep "onkyo/node/onkyoNode.js" | awk \'{print $2}\')');
+			exec('sudo kill -9 $(ps aux | grep "onkyo/resources/onkyo.js" | awk \'{print $2}\')');
 		}
 	}
 	
 	public static function dependancy_info() {
 		$return = array();
 		$return['log'] = 'onkyo_dep';
-		$net = realpath(dirname(__FILE__) . '/../../node/node_modules/net');
-		$async = realpath(dirname(__FILE__) . '/../../node/node_modules/async');
-		$events = realpath(dirname(__FILE__) . '/../../node/node_modules/events');
-		$request = realpath(dirname(__FILE__) . '/../../node/node_modules/request');
+		$net = realpath(dirname(__FILE__) . '/../../resources/node_modules/net');
+		$async = realpath(dirname(__FILE__) . '/../../resources/node_modules/async');
+		$events = realpath(dirname(__FILE__) . '/../../resources/node_modules/events');
+		$request = realpath(dirname(__FILE__) . '/../../resources/node_modules/request');
 		$return['progress_file'] = '/tmp/onkyo_dep';
 		if (is_dir($net) && is_dir($async) && is_dir($events) && is_dir($request)) {
 			$return['state'] = 'ok';
@@ -427,9 +427,9 @@ class onkyo extends eqLogic {
 	}
 	
 	public static function dependancy_install() {
-		log::add('onkyo','info','Installation des dépéndances onkyo');
+		log::add('onkyo','info','Installation des dépéndances nodejs');
 		$resource_path = realpath(dirname(__FILE__) . '/../../resources');
-		passthru('/bin/bash ' . $resource_path . '/onkyoDep.sh ' . $resource_path . ' > ' . log::getPathToLog('onkyo_dep') . ' 2>&1 &');
+		passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' onkyo > ' . log::getPathToLog('onkyo_dep') . ' 2>&1 &');
 	}
 	
 	public function preSave() {
