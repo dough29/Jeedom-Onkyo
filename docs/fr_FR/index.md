@@ -1,6 +1,6 @@
-=== Configuration du plugin
+# Configuration du plugin
 
-== Installation des dépendances
+## Installation des dépendances
 
 Le plugin utilise un noeud Node.JS pour gérer les échanges entre vos amplificateurs et Jeedom.
 
@@ -10,13 +10,13 @@ Le processus est automatisé et prendre environ 5 minutes (selon environnement e
 
 Vous pouvez suivre l'avancement sur l'écran "Analyse > Logs : onkyo_dep".
 
-== Lancement du service
+## Lancement du service
 
 Le port d'écoute du service d'interface est paramétrable mais il n'est pas nécessaire de le modifier si ce port est libre sur votre machine.
 
 Dans l'éncart "Démon" cliquer sur "Démarrer" pour lancer le service.
 
-== Ajout d'un amplificateurs
+## Ajout d'un amplificateurs
 
 Rendez vous sur l'écran "Plugins > Multimédia > Onkyo" puis cliquer sur "Ajouter".
 
@@ -28,7 +28,7 @@ Si la configuration est suffisante l'amplificateur sera ajouté aux équipements
 
 Pour afficher les états/commandes sur le dahsboard affecter l'amplificateur à un objet parent et mettre "Visible" sur "Oui".
 
-== En cas de problème
+## En cas de problème
 
 En cas de problème de fonctionnement il faut passer le niveau de log à "Debug" sur l'écran de configuration du plugin Onkyo.
 
