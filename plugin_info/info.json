@@ -9,6 +9,6 @@
 	"hasDependency" : 1,
 	"hasOwnDeamon" : 1,
 	"language" : ["fr_FR"],
-	"changelog" : "https://github.com/dough29/Jeedom-Onkyo/blob/stable/doc/fr_FR/changelog.asciidoc",
-	"documentation" : "https://github.com/dough29/Jeedom-Onkyo/blob/stable/doc/fr_FR/configuration.asciidoc"
+	"changelog" : "http://dough29.github.io/Jeedom-Onkyo/fr_FR/changelog",
+	"documentation" : "http://dough29.github.io/Jeedom-Onkyo/fr_FR/"
 }
