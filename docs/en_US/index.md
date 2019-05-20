@@ -1,6 +1,6 @@
-# Configuration du plugin
+# Plugin configuration
 
-## Installation des dépendances
+## Dependencies installation
 
 Le plugin utilise un noeud Node.JS pour gérer les échanges entre vos amplificateurs et Jeedom.
 
@@ -10,7 +10,7 @@ Le processus est automatisé et prendre environ 5 minutes (selon environnement e
 
 Vous pouvez suivre l'avancement sur l'écran "Analyse > Logs : onkyo_dep".
 
-## Lancement du service
+## Launch of the service
 
 Le port d'écoute du service d'interface est paramétrable mais il n'est pas nécessaire de le modifier si ce port est libre sur votre machine.
 
