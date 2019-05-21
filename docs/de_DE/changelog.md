@@ -1,3 +1,7 @@
+## Version 2.9 - 20/05/2019
+
+Ajout de la gestion de la commande SLZ (Zone 1)
+
 ## Version 2.8 - 19/05/2019
 
 Amélioration de la gestion des dépendances
