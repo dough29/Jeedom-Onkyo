@@ -81,7 +81,7 @@ var callbackServer = net.createServer((c) => {
 					c.write(result+'\n');
 					break;
 				case 'sendCmd':
-					logger('DEBUG', '->sendCmd: id='+cmd.id+'; command='+cmd.command);
+					logger('DEBUG', '<<< Envoi de la commande "' + cmd.command + '" à id.'+cmd.id);
 					onkyo.raw({id:cmd.id, message:cmd.command}, function (err) {
 						if (err) {
 							logger('ERROR', 'ERROR - sending command:'+err);
@@ -133,27 +133,17 @@ onkyo.connect = function (id, name, host, port) {
 		logger('ERROR', 'Connexion id.'+node.id+' : une erreur est survenue, vérifier la configuration');
 	}).
 	on('data', function (data) {
-		logger('DEBUG', '#################### packet ####################');
-		logger('DEBUG', data.toString());
-		logger('DEBUG', '################################################');
-		
 		// On ne conserve que les caractères nécessaires
-		var messages = data.toString().replace(/[^\x20-\x7E\xC0-\xFF]/gi, '');
-		messages = messages.replace('ISCP\'!1', 'ISCP!1');
+		var message = data.toString().replace(/[^\x20-\x7E\xC0-\xFF]/gi, '');
+
+		logger('DEBUG', ">>> " + message);
 		
-		messages = messages.split('ISCP!1');
-
-		for (var i = 0, len = messages.length; i < len; i++) {
-			if (messages[i].length > 0) {
-				logger('DEBUG', '##################-> '+messages[i].length+' - '+messages[i]);
-				logger('DEBUG', 'Etat "'+messages[i]+'" reçu pour id.'+node.id);
-				
-				sendToJeedom(node.id, messages[i]);
-			}
+		var command = message.match(/^ISCP.*!1(.*)/) || [];
+		if (command.length > 0) {
+			logger('DEBUG', 'Etat "'+command[1]+'" reçu pour id.'+node.id);
+			
+			sendToJeedom(node.id, command[1]);
 		}
-
-		logger('DEBUG', '################################################');
-		logger('DEBUG', '################################################');
 	});
 	nodes.push(node);
 }
@@ -198,10 +188,10 @@ function iscp_packet(data) {
     // Add ISCP header if not already present
     if (data.charAt(0) !== '!') { data = '!1' + data; }
     // ISCP message
-    iscp_msg = new Buffer(data + '\x0D\x0a');
+    iscp_msg = new Buffer.from(data + '\x0D\x0a');
 
     // eISCP header
-    header = new Buffer([
+    header = new Buffer.from([
         73, 83, 67, 80, // magic
         0, 0, 0, 16,    // header size
         0, 0, 0, 0,     // data size
@@ -228,7 +218,7 @@ function sendToJeedom(id, message) {
 	var jeeOnkyo = urlJeedom + '&onkyoId='+id+'&cmd='+command+'&value='+value;
 	request(jeeOnkyo, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			logger('DEBUG', 'Mise à jour de l\'état dans Jeedom : '+jeeOnkyo);
+			logger('DEBUG', 'Mise à jour de l\'état dans Jeedom : ' + jeeOnkyo);
 		}
 		else{
 			logger('ERROR', 'Envoi de l\état à Jeedom impossible');

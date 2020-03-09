@@ -119,7 +119,7 @@ class onkyo extends eqLogic {
 			"UP" => array("Zone2 Selector Position Wrap-Around Up", "action", "other"),
 			"DOWN" => array("Zone2 Selector Position Wrap-Around Down", "action", "other")
 		),
-/*		"LMD" => array(
+		"LMD" => array(
 			"configuration" => array("Listening Mode", "info", "string"),
 			"00" => array("STEREO", "action", "other"),
 			"01" => array("DIRECT", "action", "other"),
@@ -199,7 +199,7 @@ class onkyo extends eqLogic {
 			"MOVIE" => array("Listening Mode Wrap-Around Movie", "action", "other"),
 			"MUSIC" => array("Listening Mode Wrap-Around Music", "action", "other"),
 			"GAME" => array("Listening Mode Wrap-Around Game", "action", "other")
-		),*/
+		),
 		"PRS" => array(
 			"configuration" => array("Preset", "info", "string"),
 			"UP" => array("Preset No. Wrap-Around Up", "action", "other"),
@@ -353,6 +353,8 @@ class onkyo extends eqLogic {
 		/*"NPU" => array(
 			"configuration" => array("NET Popup Message", "info", "string")
 		),*/
+		"IFA" => array( "configuration" => array("Audio Information", "info", "string") ),
+		"IFV" => array( "configuration" => array("Video Information", "info", "string") ),
 	);
 	
 	public static function deamon_info() {
