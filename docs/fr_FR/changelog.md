@@ -1,3 +1,11 @@
+## Version 2.10 - 09/03/2020
+
+Ajout de la gestion des commandes et informations :
+- LMD (Listening Mode)
+- IFA (Audio Information)
+- IFV (Video Information)
+Fix du message d'erreur au lancement du démon
+
 ## Version 2.9 - 20/05/2019
 
 Ajout de la gestion de la commande SLZ (Zone 1)
