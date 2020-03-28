@@ -355,6 +355,11 @@ class onkyo extends eqLogic {
 		),*/
 		"IFA" => array( "configuration" => array("Audio Information", "info", "string") ),
 		"IFV" => array( "configuration" => array("Video Information", "info", "string") ),
+		"OSD" => array(
+			"configuration" => array("Setup Operation Command", "info", "string"),
+			"MENU" => array("Menu", "action", "other"),
+			"IPV" => array("Instaprevue", "action", "other"),
+		),
 	);
 	
 	public static function deamon_info() {
