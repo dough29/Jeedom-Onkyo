@@ -358,6 +358,16 @@ class onkyo extends eqLogic {
 		"OSD" => array(
 			"configuration" => array("Setup Operation Command", "info", "string"),
 			"MENU" => array("Menu", "action", "other"),
+			"UP" => array("Up", "action", "other"),
+			"DOWN" => array("Down", "action", "other"),
+			"RIGHT" => array("Right", "action", "other"),
+			"LEFT" => array("Left", "action", "other"),
+			"ENTER" => array("Enter", "action", "other"),
+			"EXIT" => array("Exit", "action", "other"),
+			"AUDIO" => array("Audio Adjust", "action", "other"),
+			"VIDEO" => array("Video Adjust", "action", "other"),
+			"HOME" => array("Home", "action", "other"),
+			"QUICK" => array("Quick Setup", "action", "other"),
 			"IPV" => array("Instaprevue", "action", "other"),
 		),
 	);
