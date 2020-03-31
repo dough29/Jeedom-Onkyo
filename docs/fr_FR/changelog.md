@@ -1,3 +1,8 @@
+## Version 2.11 - 31/03/2020
+
+Ajout de la gestion des commandes et informations :
+- OSD (Setup Operation Command)
+
 ## Version 2.10 - 09/03/2020
 
 Ajout de la gestion des commandes et informations :
