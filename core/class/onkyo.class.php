@@ -332,9 +332,9 @@ class onkyo extends eqLogic {
 		"NST" => array(
 			"configuration" => array("NET/USB Play Status", "info", "string")
 		),
-		/*"NPR" => array(
+		"NPR" => array(
 			"configuration" => array("Internet Radio Preset", "info", "string")
-		),*/
+		),
 		/*"NLS" => array(
 			"configuration" => array("NET/USB List Info", "info", "string")
 		),*/
