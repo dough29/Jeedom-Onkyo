@@ -1,3 +1,8 @@
+## Version 2.12 - 08/06/2020
+
+Ajout de la gestion de la commande :
+- NPR (Internet Radio Preset)
+
 ## Version 2.11 - 31/03/2020
 
 Ajout de la gestion des commandes et informations :
