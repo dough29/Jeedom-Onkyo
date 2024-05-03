@@ -643,7 +643,7 @@ class onkyo extends eqLogic {
 		log::add('onkyo', 'debug', 'Création des commandes terminée');
 	}
 	
-	public function createNode($onkyo) {
+	public static function createNode($onkyo) {
 		$onkyoIp = filter_var($onkyo->getConfiguration('onkyo_ip'), FILTER_VALIDATE_IP);
 		$onkyoPort = (is_numeric($onkyo->getConfiguration('onkyo_port', 60128)) && $onkyo->getConfiguration('onkyo_port', 60128) > 0 && $onkyo->getConfiguration('onkyo_port', 60128) < 65537 ? true : false);
 		
