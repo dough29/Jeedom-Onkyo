@@ -1,3 +1,8 @@
+## Version 2.13 - 06/05/2024
+
+Fix contexte de la fonction createNode()
+Mise à jour des dépendances
+
 ## Version 2.12 - 08/06/2020
 
 Ajout de la gestion de la commande :
